@@ -10,7 +10,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options) -> str | None:
         url = options.get('url')
         status_code = check(url=url)
-        is_ok = status_code//100 == 2
+        is_ok = False
+        if status_code:
+            is_ok = status_code//100 == 2
         print(status_code)
         try:
             url_object = Url.objects.get(url=url)
